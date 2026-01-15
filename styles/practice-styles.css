@@ -23,6 +23,9 @@ h1{
     color: steelblue;
     text-decoration: underline;
 }
+p {color: black;
+text-decoration:blue;
+font-size: 25px;}
 footer {
     background-color: steelblue;
     color: white;
