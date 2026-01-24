@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CFB 26 Playbook Builder</title>
+
+<!-- GOOGLE FONTS -->
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --heading-font: "Oswald", sans-serif;
+  --body-font: "Open Sans", sans-serif;
+  --primary: #0b1c2d;
+  --accent: #c8102e;
+  --light: #f4f6f8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--body-font);
+  background: var(--light);
+}
+
+header {
+  background: var(--primary);
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+header h1 {
+  font-family: var(--heading-font);
+  margin: 0;
+}
+
+.container {
+  padding: 1rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.section {
+  background: white;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+}
+
+.section h2 {
+  font-family: var(--heading-font);
+  margin-top: 0;
+}
+
+input, select, button {
+  padding: 0.5rem;
+  margin: 0.25rem 0;
+  width: 100%;
+}
+
+button {
+  background: var(--accent);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.play {
+  border-bottom: 1px solid #ddd;
+  padding: 0.5rem 0;
+}
+
+.play small {
+  color: #555;
+}
+
+.flex {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.flex > div {
+  flex: 1;
+  min-width: 250px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>CFB 26 Playbook Builder</h1>
+  <p>Build smarter playbooks with AI-assisted logic</p>
+</header>
+
+<div class="container">
+
+  <!-- BASE PLAYBOOK -->
+  <div class="section">
+    <h2>Select Base Playbook</h2>
+    <select id="basePlaybook">
+      <option>Alabama</option>
+      <option>Oregon</option>
+      <option>Georgia</option>
+      <option>Ohio State</option>
+    </select>
+    <button onclick="createPlaybook()">Create New Playbook</button>
+  </div>
+
+  <!-- SEARCH -->
+  <div class="section">
+    <h2>Search Plays (AI Assisted)</h2>
+    <input id="searchInput" placeholder="Ex: short yardage passing plays / beats Cover 3">
+    <button onclick="searchPlays()">Search</button>
+    <div id="results"></div>
+  </div>
+
+  <!-- AI SUGGESTIONS -->
+  <div class="section">
+    <h2>AI Suggestions</h2>
+    <button onclick="suggestPlays()">Generate Suggestions</button>
+    <div id="suggestions"></div>
+  </div>
+
+  <!-- PLAYBOOK -->
+  <div class="section">
+    <h2>Your Playbook</h2>
+    <div id="playbook"></div>
+  </div>
+
+</div>
+
+<script>
+// ------------------ PLAY DATA ------------------
+const plays = [
+  { name: "Shotgun Inside Zone", type: "run", formation: "Shotgun", tags: ["short yardage"], success: 72 },
+  { name: "Trips Stick", type: "pass", formation: "Trips", tags: ["beats cover 3"], success: 68 },
+  { name: "PA Boot Left", type: "pass", formation: "Singleback", tags: ["play action"], success: 75 },
+  { name: "HB Stretch", type: "run", formation: "I-Form", tags: ["outside"], success: 65 },
+  { name: "Mesh Concept", type: "pass", formation: "Shotgun", tags: ["beats man"], success: 70 },
+  { name: "RPO Slant Flat", type: "pass", formation: "Shotgun", tags: ["rpo", "short yardage"], success: 78 }
+];
+
+let currentPlaybook = [];
+
+// ------------------ PLAYBOOK ------------------
+function createPlaybook() {
+  currentPlaybook = [];
+  savePlaybook();
+  renderPlaybook();
+}
+
+function savePlaybook() {
+  localStorage.setItem("cfbPlaybook", JSON.stringify(currentPlaybook));
+}
+
+function loadPlaybook() {
+  const saved = localStorage.getItem("cfbPlaybook");
+  if (saved) currentPlaybook = JSON.parse(saved);
+  renderPlaybook();
+}
+
+function addPlay(play) {
+  currentPlaybook.push(play);
+  savePlaybook();
+  renderPlaybook();
+}
+
+function renderPlaybook() {
+  const pb = document.getElementById("playbook");
+  pb.innerHTML = "";
+  currentPlaybook.forEach(p => {
+    pb.innerHTML += `<div class="play"><strong>${p.name}</strong> <small>${p.formation} | ${p.type}</small></div>`;
+  });
+}
+
+// ------------------ SEARCH ------------------
+function searchPlays() {
+  const q = document.getElementById("searchInput").value.toLowerCase();
+  const results = plays.filter(p =>
+    p.name.toLowerCase().includes(q) ||
+    p.tags.some(t => q.includes(t))
+  );
+  display(results, "results");
+}
+
+// ------------------ AI SUGGESTIONS ------------------
+function suggestPlays() {
+  const usedTypes = currentPlaybook.map(p => p.type);
+  const needPass = usedTypes.filter(t => t === "run").length > usedTypes.filter(t => t === "pass").length;
+
+  const suggestions = plays
+    .filter(p => !currentPlaybook.includes(p))
+    .sort((a, b) => b.success - a.success)
+    .slice(0, 3);
+
+  display(suggestions, "suggestions");
+}
+
+// ------------------ DISPLAY ------------------
+function display(list, elementId) {
+  const el = document.getElementById(elementId);
+  el.innerHTML = "";
+  list.forEach(p => {
+    el.innerHTML += `
+      <div class="play">
+        <strong>${p.name}</strong><br>
+        <small>${p.formation} | ${p.type} | Success: ${p.success}%</small><br>
+        <button onclick='addPlay(${JSON.stringify(p)})'>Add to Playbook</button>
+      </div>
+    `;
+  });
+}
+
+loadPlaybook();
+</script>
+
+</body>
+</html>
