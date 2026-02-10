@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Favorite Devotionals</title>
+  <link rel="stylesheet" href="styles/styles.css" />
+  <style>
+    *{
+       box-sizing: border-box;
+         margin: 0;
+            padding: 0;
+        }
+        table {
+            border-collapse: collapse;
+        }
+
+        th {
+          background-color: royalblue;
+          color: white;
+          font-size: 1.5em;
+        }
+        td {
+            padding: 1em;
+            border: 5px dashed gray;
+        }
+
+        label, input {
+            display: block;
+            width: 200px;
+            margin-top: 0.5em;
+            padding: 0.25em 0.5em;
+        }
+
+        form {
+          width: 300px;
+          margin: 0 auto;
+        }
+
+
+form {
+  width: 100%;
+  max-width: 400px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+  color: #333;
+}
+
+form input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  font-size: 1em;
+}
+
+form input[type="text"]:focus {
+  border-color: royalblue;
+  outline: none;
+}
+
+form input[type="submit"] {
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  background-color: royalblue;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+form input[type="submit"]:hover {
+  background-color: #1f3fd4;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="header-image">
+        <h1>My Favorite<br>Devotionals</h1>
+      </div>
+    </header>
+    <main>
+      <div class="content-box">
+        <table>
+  <thead>
+    <tr>
+      <th>Speaker</th>
+      <th>Title</th>
+      <th>Location</th>
+      <th>Year</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Lawrence E Corbridge</td>
+      <td>Stand Forever</td>
+      <td>BYU Devotional</td>
+      <td>January 22, 2019</td>
+    </tr>
+    <tr>
+      <td>Lynn G Robins</td>
+      <td>Be 100 Percent Responsible</td>
+      <td>BYU Devotional</td>
+      <td>August 22, 2017</td>
+    </tr>
+    <tr>
+      <td>Jeffrey R. Holland</td>
+      <td>Cast Not Away Therefore Your Confidence</td>
+      <td>BYU Devotional</td>
+      <td>March 2, 1999</td>
+    </tr>
+  </tbody>
+</table>
+<form action="">
+        <label for="firstname">Name</label>
+        <input type="text" id="firstname" name="firstname">
+        <label for="firstname">Talk</label>
+        <input type="text" id="firstname" name="firstname">
+        <label for="firstname">Date of Talk</label>
+        <input type="text" id="firstname" name="firstname">
+        <input type="submit">
+    </form>
+      </div>
+      
+    </main>
+  </div>
+</body>
+</html>

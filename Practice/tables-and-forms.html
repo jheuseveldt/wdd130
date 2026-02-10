@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+           box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Table headings */
+thead {
+  background-color: #023E8A; /* dark blue */
+  color: white;
+}
+
+th {
+  padding: 12px;
+  text-align: left;
+  font-weight: bold;
+}
+
+/* Table body */
+td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Alternate row colors */
+tbody tr:nth-child(even) {
+  background-color: #CAF0F8; /* pale blue */
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #F8F9FA;
+}
+
+/* Hover effect */
+tbody tr:hover {
+  background-color: #90E0EF;
+}
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>Wedding Job</th>
+            <th>Who</th>
+            <th>When</th>
+        </tr>
+        <tr>
+            <td>Hanging Lights</td>
+            <td>Josh</td>
+            <td>Thursday</td>
+        </tr>
+        <tr>
+            <td>Invites</td>
+            <td>Karen</td>
+            <td>Monday</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+
+    <form action="">
+        <label for="firstname">Name</label>
+        <input type="text" id="firstname" name="firstname">
+        <label for="firstname">Name</label>
+        <input type="text" id="firstname" name="firstname">
+        <label for="firstname">Name</label>
+        <input type="text" id="firstname" name="firstname">
+        <label for="firstname">Name</label>
+        <input type="text" id="firstname" name="firstname">
+        <input type="submit">
+    </form>
+
+
+
+</body>
+</html>
